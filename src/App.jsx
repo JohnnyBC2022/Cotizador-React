@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Header from "./components/Header";
+import Button from "./components/Button";
 
 function App() {
   const [amount, setAmount] = useState(25000);
@@ -34,20 +35,14 @@ function App() {
       <Header />
 
       <div className="flex justify-between my-6">
-        <button
-          type="button"
-          className="h-10 w-10 flex items-center justify-center font-bold text-white text-2xl bg-green-500 rounded-full hover:outline-none hover:ring-2 hover:ring-offset-2 hover:ring-green-500"
-          onClick={handleClickDecrease}
-        >
-          -
-        </button>
-        <button
-          type="button"
-          className="h-10 w-10 flex items-center justify-center font-bold text-white text-2xl bg-green-500 rounded-full hover:outline-none hover:ring-2 hover:ring-offset-2 hover:ring-green-500"
-          onClick={handleClickIncrease}
-        >
-          +
-        </button>
+        <Button
+          operator='-'
+          fn={handleClickDecrease}
+        />
+        <Button
+          operator='+'
+          fn={handleClickIncrease}
+        />
       </div>
       <input
         type="range"
