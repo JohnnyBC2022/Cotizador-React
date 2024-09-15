@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "./components/Header";
 import Button from "./components/Button";
 import { formatMoney, calculateTotalPay } from "./helpers";
@@ -8,6 +8,17 @@ function App() {
   const [amount, setAmount] = useState(25000);
   const [months, setMonths] = useState(6);
   const [total, setTotal] = useState(0);
+  const [payment, setPayment] = useState(0);
+
+  useEffect(() => {
+    const resultTotalPay = calculateTotalPay(amount, months);
+    setTotal(resultTotalPay);
+  }, [amount, months]);
+
+  useEffect(() => {
+    // Calcular la mensualidad:
+    setPayment(total / months);
+  }, [total]);
 
   const MIN = 0;
   const MAX = 50000;
@@ -59,17 +70,24 @@ function App() {
         Escoge tu <span className="text-green-500">Plazo</span>
       </h2>
 
-      <Select months={months} setMonths={setMonths}/>
+      <Select months={months} setMonths={setMonths} />
 
       <div className="my-5 space-y-3 bg-sky-50 p-5">
-      <h2 className="text-2xl font-extrabold text-sky-800 text-center">
-        Resumen de <span className="text-green-500">Pagos</span>
-      </h2>
-      <p className="text-xl text-sky-800 text-center font-bold">{months} Meses</p>
-      <p className="text-xl text-sky-800 text-center font-bold">Total a pagar</p>
-      <p className="text-xl text-sky-800 text-center font-bold">Cuota mensual:</p>
+        <h2 className="text-2xl font-extrabold text-sky-800 text-center">
+          Resumen del <span className="text-green-500">Préstamo</span>
+        </h2>
+        <p className="text-xl text-sky-800 text-center font-semibold">
+          Duración: <span className="font-extrabold">{months} Meses</span>
+        </p>
+        <p className="text-xl text-sky-800 text-center font-semibold">
+          Total a pagar:{" "}
+          <span className="font-extrabold">{formatMoney(total)}</span>
+        </p>
+        <p className="text-xl text-sky-800 text-center font-semibold">
+          Cuota mensual:{" "}
+          <span className="font-extrabold">{formatMoney(payment)}</span>
+        </p>
       </div>
-
     </div>
   );
 }
