@@ -1,12 +1,13 @@
 import { useState } from "react";
 import Header from "./components/Header";
 import Button from "./components/Button";
-import { formatMoney } from "./helpers";
+import { formatMoney, calculateTotalPay } from "./helpers";
 import Select from "./components/Select";
 
 function App() {
   const [amount, setAmount] = useState(25000);
   const [months, setMonths] = useState(6);
+  const [total, setTotal] = useState(0);
 
   const MIN = 0;
   const MAX = 50000;
@@ -59,6 +60,15 @@ function App() {
       </h2>
 
       <Select months={months} setMonths={setMonths}/>
+
+      <div className="my-5 space-y-3 bg-sky-50 p-5">
+      <h2 className="text-2xl font-extrabold text-sky-800 text-center">
+        Resumen de <span className="text-green-500">Pagos</span>
+      </h2>
+      <p className="text-xl text-sky-800 text-center font-bold">{months} Meses</p>
+      <p className="text-xl text-sky-800 text-center font-bold">Total a pagar</p>
+      <p className="text-xl text-sky-800 text-center font-bold">Cuota mensual:</p>
+      </div>
 
     </div>
   );
