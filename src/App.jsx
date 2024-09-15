@@ -3,9 +3,9 @@ import Header from "./components/Header";
 import Button from "./components/Button";
 import { formatMoney } from "./helpers";
 
-
 function App() {
   const [amount, setAmount] = useState(25000);
+  const [months, setMonths] = useState(6);
 
   const MIN = 0;
   const MAX = 50000;
@@ -37,14 +37,8 @@ function App() {
       <Header />
 
       <div className="flex justify-between my-6">
-        <Button
-          operator='-'
-          fn={handleClickDecrease}
-        />
-        <Button
-          operator='+'
-          fn={handleClickIncrease}
-        />
+        <Button operator="-" fn={handleClickDecrease} />
+        <Button operator="+" fn={handleClickIncrease} />
       </div>
       <input
         type="range"
@@ -58,6 +52,21 @@ function App() {
       <p className="text-center my-10 text-5xl font-extrabold text-green-600">
         {formatMoney(amount)}
       </p>
+
+      <h2 className="text-2xl font-extrabold text-sky-800 text-center">
+        Escoge tu <span className="text-green-500">Plazo</span>
+      </h2>
+
+      <select
+      className="mt-5 w-full p-2 bg-sky-100 border border-sky-900 rounded-lg text-center text-xl font-bold text-sky-800"
+      value={months}
+      onChange={e=>setMonths(+e.target.value)}
+      >
+        <option value="6">6 meses</option>
+        <option value="12">12 meses</option>
+        <option value="24">24 meses</option>
+      </select>
+
     </div>
   );
 }
